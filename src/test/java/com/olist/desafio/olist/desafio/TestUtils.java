@@ -13,8 +13,8 @@ public class TestUtils {
     public void TestReader() throws IOException {
 
         String path = "src/main/resources/csv/categorias.csv";
-        List<String[]> categorias = CsvUtils.readCSV(path);
+        List<String[]> categories = CsvUtils.readCSV(path);
 
-        Assert.notEmpty(categorias);
+        Assert.notEmpty(categories);
     }
 }

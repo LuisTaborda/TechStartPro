@@ -5,8 +5,8 @@
 
     <persistence-unit name="tech_start_pro" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.olist.desafio.olist.desafio.entity.Categoria</class>
-        <class>com.olist.desafio.olist.desafio.entity.Produto</class>
+        <class>com.olist.desafio.olist.desafio.entity.Category</class>
+        <class>com.olist.desafio.olist.desafio.entity.Product</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.url"

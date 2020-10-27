@@ -1,6 +1,6 @@
 
 # Trabalho no olist
-Olist é uma empresa que oferece uma plataforma de integração para vendedores e marketplaces, permitindo-lhes vender seus produtos em vários canais.
+Olist é uma empresa que oferece uma plataforma de integração para vendedores e marketplaces, permitindo-lhes vender seus products em vários canais.
 
 A equipe de desenvolvimento Olist consiste em desenvolvedores que amam o que fazem. Nossos processos de desenvolvimento ágil e nossa busca pelas melhores práticas de desenvolvimento proporcionam um ótimo ambiente para profissionais que gostam de criar softwares de qualidade em boa companhia.
 
@@ -26,11 +26,11 @@ Este repositório contém um problema usado para avaliar as habilidades do candi
 
 
 # Especificação
-Você deve implementar um aplicativo para armazenar dados de produtos e categorias.
+Você deve implementar um aplicativo para armazenar dados de products e categories.
 
-1. Receba um CSV com as categorias e importe para o banco de dados
+1. Receba um CSV com as categories e importe para o banco de dados
 
-  Dado um arquivo CSV com muitas categorias, você precisa construir um comando para importar os dados para o banco de dados. O arquivo CSV terá o seguinte formato:
+  Dado um arquivo CSV com muitas categories, você precisa construir um comando para importar os dados para o banco de dados. O arquivo CSV terá o seguinte formato:
 
 > nome
 > * Móveis
@@ -39,40 +39,40 @@ Você deve implementar um aplicativo para armazenar dados de produtos e categori
 > * Informática
 > * Brinquedos
 
-Cada registro de categoria no banco de dados deve ter os seguintes campos:
+Cada registro de category no banco de dados deve ter os seguintes campos:
 * id (autogerado)
 * nome
 
-Você precisa armazenar os dados das categorias para complementar os dados do produto que serão armazenados posteriormente (consulte o item # 2).
+Você precisa armazenar os dados das categories para complementar os dados do product que serão armazenados posteriormente (consulte o item # 2).
 
 
-2. CRUD (criar, ler, atualizar e excluir) de produtos:
+2. CRUD (criar, ler, atualizar e excluir) de products:
 
 Você precisa implementar estas ações:
-* Criar um produto
-* Ler os dados do produto
-* Atualizar os dados do produto
-* Excluir os dados do produto
+* Criar um product
+* Ler os dados do product
+* Atualizar os dados do product
+* Excluir os dados do product
 
-Cada registro de produto possui os campos:
+Cada registro de product possui os campos:
 * id (autogerado)
 * nome
 * descrição
 * valor
-* categorias (um produto pode estar em mais de uma categoria)
+* categories (um product pode estar em mais de uma category)
 
-Para recuperar um produto, podemos filtrar por 4 campos (ou uma composição desses quatro):
+Para recuperar um product, podemos filtrar por 4 campos (ou uma composição desses quatro):
 * nome
 * descrição
 * valor
-* categorias
-Deve ser possível navegar pelos dados de todos os produtos sem nenhum filtro.
+* categories
+Deve ser possível navegar pelos dados de todos os products sem nenhum filtro.
 
-Para criar um produto, será necessário informar os dados abaixo:
-* "nome": // Nome do produto;
-* “descrição”: // Descrição do produto
-* “valor”:// Valor do produto
-* “categorias”:// Lista de ids de categorias
+Para criar um product, será necessário informar os dados abaixo:
+* "nome": // Nome do product;
+* “descrição”: // Descrição do product
+* “valor”:// Valor do product
+* “categories”:// Lista de ids de categories
 
 
 # Requisitos do projeto:
