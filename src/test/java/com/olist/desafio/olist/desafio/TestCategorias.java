@@ -3,6 +3,7 @@ package com.olist.desafio.olist.desafio;
 
 import com.olist.desafio.olist.desafio.entity.Categoria;
 import com.olist.desafio.olist.desafio.controller.CategoriaService;
+import com.olist.desafio.olist.desafio.utils.CategoriasConst;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
@@ -30,12 +31,12 @@ public class TestCategorias {
     @Test
     public void buscar() {
         Categoria categoria = new Categoria();
-        categoria.setId(4L);
+        categoria.setId(CategoriasConst.INFORMATICA);
 
         CategoriaService categoriaService = new CategoriaService();
         Categoria itemProcurado = null;
         try {
-            itemProcurado = categoriaService.buscarId(categoria);
+            itemProcurado = categoriaService.buscarId(CategoriasConst.INFORMATICA);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -78,9 +79,8 @@ public class TestCategorias {
     @Test
     public void Remover() {
         Categoria c = new Categoria();
-        c.setId(4L);
         CategoriaService categoriaService = new CategoriaService();
-        c = categoriaService.buscarId(c);
+        c = categoriaService.buscarId(CategoriasConst.INFORMATICA);
 
         boolean state = false;
         try {

@@ -1,7 +1,9 @@
 package com.olist.desafio.olist.desafio.entity;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "categoria")
@@ -15,8 +17,11 @@ public class Categoria {
     @Column(name = "NOME", nullable = false)
     private String Nome;
 
-    @ManyToMany(mappedBy="categoria", fetch = FetchType.LAZY)
-    private List<Categoria> categoriaList;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name="PRODUTO_CATEGORIA",
+            joinColumns={@JoinColumn(name="CATEGORIA_ID")},
+            inverseJoinColumns={@JoinColumn(name="PRODUTO_ID")})
+    private Set<Produto> produtos;
 
     public Long getId() {
         return id;
@@ -34,11 +39,11 @@ public class Categoria {
         Nome = nome;
     }
 
-    public List<Categoria> getCategoriaList() {
-        return categoriaList;
+    public Set<Produto> getProdutos() {
+        return produtos;
     }
 
-    public void setCategoriaList(List<Categoria> categoriaList) {
-        this.categoriaList = categoriaList;
+    public void setProdutos(Set<Produto> produtos) {
+        this.produtos = produtos;
     }
 }

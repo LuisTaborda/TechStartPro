@@ -18,8 +18,8 @@ public class CategoriaService {
         categoriaRepository.adicionar(categoria);
     }
 
-    public Categoria buscarId(Categoria categoria){
-        return categoriaRepository.buscarId(categoria);
+    public Categoria buscarId(Long id){
+        return categoriaRepository.buscarId(id);
     }
 
     public Categoria buscarNome(Categoria categoria){

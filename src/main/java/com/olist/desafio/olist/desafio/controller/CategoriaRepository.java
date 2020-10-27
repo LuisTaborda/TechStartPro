@@ -47,13 +47,14 @@ public class CategoriaRepository {
         else return new ArrayList<>();
     }
 
-    public Categoria buscarId(Categoria categoria) {
+    public Categoria buscarId(Long id) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
 
+        Categoria categoria = null;
         EntityManager em = entityManagerFactory.createEntityManager();
 
         try {
-            categoria = em.find(Categoria.class, categoria.getId());
+            categoria = em.find(Categoria.class, id);
         } catch (Exception e) {
             System.out.println("LIST ALL: " + e.getMessage());
         } finally {

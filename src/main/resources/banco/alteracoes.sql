@@ -14,8 +14,8 @@ create table produto(
 
 create table produto_categoria(
 	id serial not null,
-	produtoId integer not null,
-	categoriaId integer not null,
-	constraint produto_id_fk foreign key(produtoId) references produto(id),
-	constraint categoria_id_fk foreign key(categoriaId) references categoria(id)
+	produto_id integer not null,
+	categoria_id integer not null,
+	constraint produto_id_fk foreign key(produto_id) references produto(id),
+	constraint categoria_id_fk foreign key(categoria_id) references categoria(id)
 )
