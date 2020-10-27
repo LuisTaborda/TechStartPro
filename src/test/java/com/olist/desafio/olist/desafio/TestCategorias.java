@@ -6,6 +6,7 @@ import com.olist.desafio.olist.desafio.service.CategoriaService;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +14,7 @@ public class TestCategorias {
 
     @Test
     public void add() {
-        Categoria categoria = new Categoria();
-        categoria.setNome("Test");
-
+        String categoria = "Test";
         CategoriaService categoriaService = new CategoriaService();
 
         boolean state = false;
@@ -91,5 +90,14 @@ public class TestCategorias {
             e.printStackTrace();
         }
         Assert.isTrue(state);
+    }
+
+    @Test
+    public void AdicionarCategoria() throws IOException {
+        CategoriaService categoriaService = new CategoriaService();
+        categoriaService.adicionarCategoriasPorCSV();
+
+        List<Categoria> categorias = categoriaService.buscarTodos();
+        org.junit.Assert.assertNotNull(categorias);
     }
 }

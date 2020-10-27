@@ -11,10 +11,12 @@ import java.util.List;
 
 public class CategoriaRepository {
 
-    public void adicionar(Categoria categoria) {
+    public void adicionar(String nome) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
         EntityManager em = entityManagerFactory.createEntityManager();
 
+        Categoria categoria = new Categoria();
+        categoria.setNome(nome);
         try {
             em.getTransaction().begin();
             em.persist(categoria);

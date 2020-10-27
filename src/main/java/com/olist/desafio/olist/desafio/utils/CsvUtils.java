@@ -17,11 +17,11 @@ public class CsvUtils {
         Reader reader = Files.newBufferedReader(Paths.get(path));
         CSVReader csvReader = new CSVReaderBuilder(reader).withSkipLines(1).build();
 
-        List<String[]> pessoas = csvReader.readAll();
+        List<String[]> categorias = csvReader.readAll();
         System.out.println("Nome");
-        for (String[] pessoa : pessoas)
-            System.out.println(pessoa[0]);
+        for (String[] categoria : categorias)
+            System.out.println(categoria[0]);
 
-        return pessoas;
+        return categorias;
     }
 }
