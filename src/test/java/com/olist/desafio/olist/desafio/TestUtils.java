@@ -1,6 +1,6 @@
 package com.olist.desafio.olist.desafio;
 
-import com.olist.desafio.olist.desafio.utils.UtilsCSV;
+import com.olist.desafio.olist.desafio.utils.CsvUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
@@ -13,7 +13,7 @@ public class TestUtils {
     public void TestReader() throws IOException {
 
         String path = "src/main/resources/csv/categorias.csv";
-        List<String[]> categorias = UtilsCSV.readCSV(path);
+        List<String[]> categorias = CsvUtils.readCSV(path);
 
         Assert.notEmpty(categorias);
     }

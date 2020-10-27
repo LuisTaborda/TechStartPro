@@ -10,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class UtilsCSV {
+public class CsvUtils {
 
     public static List<String[]> readCSV(String path) throws IOException {
 
