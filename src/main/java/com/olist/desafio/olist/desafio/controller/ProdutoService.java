@@ -1,18 +1,16 @@
-package com.olist.desafio.olist.desafio.service;
+package com.olist.desafio.olist.desafio.controller;
 
 import com.olist.desafio.olist.desafio.entity.Categoria;
-import com.olist.desafio.olist.desafio.repository.CategoriaRepository;
 import com.olist.desafio.olist.desafio.utils.ConstantsUtils;
 import com.olist.desafio.olist.desafio.utils.CsvUtils;
-import org.springframework.util.Assert;
 
 import java.io.IOException;
 import java.util.List;
 
-public class CategoriaService {
+public class ProdutoService {
 
     private CategoriaRepository categoriaRepository;
-    public CategoriaService(){
+    public ProdutoService(){
         categoriaRepository = CategoriaRepository.getInstance();
     }
 

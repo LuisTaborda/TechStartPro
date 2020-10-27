@@ -2,7 +2,7 @@ package com.olist.desafio.olist.desafio;
 
 
 import com.olist.desafio.olist.desafio.entity.Categoria;
-import com.olist.desafio.olist.desafio.service.CategoriaService;
+import com.olist.desafio.olist.desafio.controller.CategoriaService;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 

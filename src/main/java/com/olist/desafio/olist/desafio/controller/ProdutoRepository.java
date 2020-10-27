@@ -1,6 +1,7 @@
-package com.olist.desafio.olist.desafio.repository;
+package com.olist.desafio.olist.desafio.controller;
 
-import com.olist.desafio.olist.desafio.entity.Categoria;
+import com.olist.desafio.olist.desafio.entity.Produto;
+import com.olist.desafio.olist.desafio.filtro.ProdutoFiltro;
 import com.olist.desafio.olist.desafio.utils.ConstantsUtils;
 
 import javax.persistence.EntityManager;
@@ -9,17 +10,15 @@ import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriaRepository {
+public class ProdutoRepository {
 
-    public void adicionar(String nome) {
+    public void adicionar(Produto produto) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
         EntityManager em = entityManagerFactory.createEntityManager();
 
-        Categoria categoria = new Categoria();
-        categoria.setNome(nome);
         try {
             em.getTransaction().begin();
-            em.persist(categoria);
+            em.persist(produto);
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
@@ -29,48 +28,53 @@ public class CategoriaRepository {
         }
     }
 
-    public List<Categoria> buscarTodos() {
+    public List<Produto> buscarTodos() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
-        List<Categoria> categorias = null;
+        List<Produto> produtos = null;
 
         EntityManager em = entityManagerFactory.createEntityManager();
 
         try {
-            categorias = em.createQuery(" from Categoria").getResultList();
+            produtos = em.createQuery(" from Produtos").getResultList();
         } catch (Exception e) {
             System.out.println("LIST ALL: " + e.getMessage());
         } finally {
             em.close();
         }
 
-        if (!categorias.isEmpty() && categorias != null) return categorias;
+        if (!produtos.isEmpty() && produtos != null) return produtos;
         else return new ArrayList<>();
     }
 
-    public Categoria buscarId(Categoria categoria) {
+    public Produto buscarId(Produto produto) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
 
         EntityManager em = entityManagerFactory.createEntityManager();
 
         try {
-            categoria = em.find(Categoria.class, categoria.getId());
+            produto = em.find(Produto.class, produto.getId());
         } catch (Exception e) {
             System.out.println("LIST ALL: " + e.getMessage());
         } finally {
             em.close();
         }
 
-        return categoria;
+        return produto;
     }
 
-    public Categoria buscarNome(Categoria categoria) {
+    public List<Produto> buscarPorFiltro(ProdutoFiltro filtro) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
-        Categoria categorias = null;
+
+        List<Produto> produto = new ArrayList<>();
 
         EntityManager em = entityManagerFactory.createEntityManager();
 
         try {
-            categorias = (Categoria) em.createQuery("FROM Categoria where nome = :nome").setParameter("nome", categoria.getNome()).getSingleResult();
+            produto = em.createQuery("FROM Categoria where nome = :nome OR descricao = :descricao OR valor = :valor")
+                    .setParameter("nome", filtro.getNome())
+                    .setParameter("descricao", filtro.getDescricao())
+                    .setParameter("valor", filtro.getValor())
+                    .getResultList();
 
         } catch (Exception e) {
             System.out.println("LIST ALL: " + e.getMessage());
@@ -78,16 +82,17 @@ public class CategoriaRepository {
             em.close();
         }
 
-        return categorias;
+        return produto;
     }
 
-    public void atualizar(Categoria categoria) {
+
+    public void atualizar(Produto produto) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
         EntityManager em = entityManagerFactory.createEntityManager();
 
         try {
             em.getTransaction().begin();
-            em.merge(categoria);
+            em.merge(produto);
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
@@ -97,13 +102,13 @@ public class CategoriaRepository {
         }
     }
 
-    public void remover(Categoria categoria) {
+    public void remover(Produto produto) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
         EntityManager em = entityManagerFactory.createEntityManager();
         try {
-            Categoria c = em.find(Categoria.class, categoria.getId());
+            Produto p = em.find(Produto.class, produto.getId());
             em.getTransaction().begin();
-            em.remove(c);
+            em.remove(p);
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
@@ -117,14 +122,14 @@ public class CategoriaRepository {
     /*
     * Singleton pattern
     * */
-    private static CategoriaRepository uniqueInstance;
+    private static ProdutoRepository uniqueInstance;
 
-    private CategoriaRepository() {
+    private ProdutoRepository() {
     }
 
-    public static synchronized CategoriaRepository getInstance() {
+    public static synchronized ProdutoRepository getInstance() {
         if (uniqueInstance == null)
-            uniqueInstance = new CategoriaRepository();
+            uniqueInstance = new ProdutoRepository();
 
         return uniqueInstance;
     }

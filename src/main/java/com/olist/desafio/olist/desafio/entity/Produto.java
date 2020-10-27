@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "categoria")
-public class Categoria {
+@Table(name = "produto")
+public class Produto {
 
     @Id
     @Column(name = "ID", unique = true, nullable = false)
@@ -15,7 +15,13 @@ public class Categoria {
     @Column(name = "NOME", nullable = false)
     private String Nome;
 
-    @ManyToMany(mappedBy="categoria", fetch = FetchType.LAZY)
+    @Column(name = "DESCRICAO", nullable = false)
+    private String descricao;
+
+    @Column(name = "VALOR", nullable = false)
+    private Double valor;
+
+    @ManyToMany(mappedBy="produto", fetch = FetchType.LAZY)
     private List<Categoria> categoriaList;
 
     public Long getId() {
@@ -32,6 +38,22 @@ public class Categoria {
 
     public void setNome(String nome) {
         Nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
     }
 
     public List<Categoria> getCategoriaList() {
