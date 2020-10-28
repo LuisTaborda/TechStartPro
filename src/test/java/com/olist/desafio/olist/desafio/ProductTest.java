@@ -7,17 +7,15 @@ import com.olist.desafio.olist.desafio.entity.Category;
 import com.olist.desafio.olist.desafio.entity.Product;
 import com.olist.desafio.olist.desafio.filtro.ProductFiler;
 import com.olist.desafio.olist.desafio.utils.CategoryConstants;
-import org.hibernate.Session;
-import org.hibernate.internal.SessionImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class ProductTest {
+
 
     @Test
     public void add() {
@@ -53,9 +51,9 @@ public class ProductTest {
         Set<Category> categories = new HashSet<>();
         categories.add(categoryService.findId(CategoryConstants.INFORMATICA));
         ProductFiler filtro = new ProductFiler();
-//        filtro.setCategoria(categorias);
+        filtro.setCategory(categories);
 //        filtro.setName("Tablet");
-        filtro.setPrice(20000.00);
+//        filtro.setPrice(20000.00);
         List<Product> products = productService.findByFilter(filtro);
         System.out.println("size: " + products.size());
         Assert.notEmpty(products);

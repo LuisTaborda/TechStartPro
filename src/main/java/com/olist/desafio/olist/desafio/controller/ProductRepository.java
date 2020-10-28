@@ -4,15 +4,13 @@ import com.olist.desafio.olist.desafio.entity.Category;
 import com.olist.desafio.olist.desafio.entity.Product;
 import com.olist.desafio.olist.desafio.filtro.ProductFiler;
 import com.olist.desafio.olist.desafio.utils.ConstantsUtils;
-import org.hibernate.Session;
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 import java.util.*;
 
 @Repository
-public class ProductRepository extends HibernateDaoSupport {
+public class ProductRepository {
 
     public void add(Product product) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
@@ -36,7 +34,6 @@ public class ProductRepository extends HibernateDaoSupport {
         List<Product> products = new ArrayList<>();
 
         EntityManager em = entityManagerFactory.createEntityManager();
-
         try {
             long id = filter.getId() != null ? filter.getId() : 0;
             String name = filter.getName() != null ? filter.getName() : "";
@@ -44,15 +41,13 @@ public class ProductRepository extends HibernateDaoSupport {
             Double price = filter.getPrice() != null ? filter.getPrice() : 0;
             Set<Category> categories = filter.getCategory() != null ? filter.getCategory() : new HashSet<>();
 
-
-            products = em.createQuery(" FROM Product p WHERE p.id = :id OR p.name like :name OR p.description like :description OR p.price <= :price")
+            products = em.createQuery(" FROM Product p WHERE p.id = :id OR p.name like :name OR p.description like :description OR p.price <= :price ")
                     .setParameter("id", id)
-                    .setParameter("name","%"+name+"%")
-                    .setParameter("description","%"+description+"%")
-                    .setParameter("price",price)
+                    .setParameter("name", "%" + name + "%")
+                    .setParameter("description", "%" + description + "%")
+                    .setParameter("price", price)
                     .getResultList();
-//                   query.setParameter("categoria", filter.getCategoria())
-
+            if (!categories.isEmpty() && categories != null) products = filterCategory(categories, products);
 
         } catch (Exception e) {
             System.out.println("LIST ALL: " + e.getMessage());
@@ -63,6 +58,19 @@ public class ProductRepository extends HibernateDaoSupport {
         return products;
     }
 
+    public List<Product> filterCategory(Set<Category> categories, List<Product> products) {
+        List<Product> filter = new ArrayList<>();
+        for (Product product : products) {
+            for (Category category : categories) {
+                for (Category pc : product.getCategorias()) {
+                    if (category.getName().equals(pc.getName())) {
+                        filter.add(product);
+                    }
+                }
+            }
+        }
+        return filter;
+    }
 
     public void update(Product product) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);

@@ -6,6 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "category")
+@PersistenceContext
 public class Category {
 
     @Id
@@ -16,7 +17,10 @@ public class Category {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "categories", cascade = CascadeType.DETACH)
+    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinTable(name = "product_category",
+            joinColumns = {@JoinColumn(name = "CATEGORY_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID")})
     private Set<Product> products = new HashSet<>();
 
     public Long getId() {
