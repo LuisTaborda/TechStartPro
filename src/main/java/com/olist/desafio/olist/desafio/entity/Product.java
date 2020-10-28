@@ -1,7 +1,5 @@
 package com.olist.desafio.olist.desafio.entity;
 
-import org.springframework.context.annotation.Lazy;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -69,5 +67,24 @@ public class Product {
 
     public void setCategorias(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Product#" + id + "{");
+        builder.append("\n\tid = " + id);
+        builder.append("\n\tname = " + name);
+        builder.append("\n\tprice = $$" + price);
+        builder.append("\n\tdescription = " + description);
+        if (categories != null) {
+            builder.append("\n\tcategories{");
+            for (Category c : categories) {
+                builder.append(" " + c.getName());
+            }
+            builder.append(" }");
+        }
+        builder.append("\n}");
+
+        return builder.toString();
     }
 }

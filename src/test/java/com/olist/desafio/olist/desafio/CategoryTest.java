@@ -55,20 +55,23 @@ public class CategoryTest {
         } catch (Exception e) {
             System.out.println(e);
         }
+        for (Category c : list) {
+            System.out.println(c.toString());
+        }
         Assert.notEmpty(list);
     }
 
     @Test
     public void update() {
         Category c = new Category();
-        c.setName("Patinetes Elétricos");
+        c.setName("teste");
 
         CategoryService categoryService = new CategoryService();
         c = categoryService.findName(c);
 
         boolean state = false;
         try {
-            c.setName("teste");
+            c.setName("AUTOMOVEIS");
             categoryService.update(c);
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,6 +95,10 @@ public class CategoryTest {
         Assert.isTrue(state);
     }
 
+    /**
+     * Use this Test to read a file.csv
+     * contains a file within the project in the path src/main/resources/csv/categorias.csv
+     */
     @Test
     public void addCategoryWithFileCSV() throws IOException {
         CategoryService categoryService = new CategoryService();

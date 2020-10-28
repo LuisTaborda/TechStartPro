@@ -1,21 +1,18 @@
 package com.olist.desafio.olist.desafio.controller;
 
 import com.olist.desafio.olist.desafio.entity.Category;
-import com.olist.desafio.olist.desafio.utils.ConstantsUtils;
-import org.springframework.stereotype.Repository;
+import com.olist.desafio.olist.desafio.utils.EntityManagerUtils;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
 public class CategoryRepository {
 
+
     public void add(String name) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
-        EntityManager em = entityManagerFactory.createEntityManager();
+
+        EntityManager em = EntityManagerUtils.getInstance();
 
         Category category = new Category();
         category.setName(name);
@@ -32,10 +29,9 @@ public class CategoryRepository {
     }
 
     public List<Category> findAll() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
-        List<Category> categories = null;
 
-        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityManager em = EntityManagerUtils.getInstance();
+        List<Category> categories = null;
 
         try {
             categories = em.createQuery(" from Category").getResultList();
@@ -45,16 +41,14 @@ public class CategoryRepository {
             em.close();
         }
 
-        em.detach(categories);
         if (!categories.isEmpty() && categories != null) return categories;
         else return new ArrayList<>();
     }
 
     public Category findId(Long id) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
 
+        EntityManager em = EntityManagerUtils.getInstance();
         Category category = null;
-        EntityManager em = entityManagerFactory.createEntityManager();
 
         try {
             category = em.find(Category.class, id);
@@ -68,10 +62,9 @@ public class CategoryRepository {
     }
 
     public Category findName(Category category) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
-        Category categorias = null;
 
-        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityManager em = EntityManagerUtils.getInstance();
+        Category categorias = null;
 
         try {
             categorias = (Category) em.createQuery("FROM Category where name = :name").setParameter("name", category.getName()).getSingleResult();
@@ -86,8 +79,8 @@ public class CategoryRepository {
     }
 
     public void update(Category category) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
-        EntityManager em = entityManagerFactory.createEntityManager();
+
+        EntityManager em = EntityManagerUtils.getInstance();
 
         try {
             em.getTransaction().begin();
@@ -102,8 +95,8 @@ public class CategoryRepository {
     }
 
     public void delete(Category category) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
-        EntityManager em = entityManagerFactory.createEntityManager();
+
+        EntityManager em = EntityManagerUtils.getInstance();
         try {
             Category c = em.find(Category.class, category.getId());
             em.getTransaction().begin();
@@ -119,8 +112,8 @@ public class CategoryRepository {
 
 
     /*
-    * Singleton pattern
-    * */
+     * Singleton pattern
+     * */
     private static CategoryRepository uniqueInstance;
 
     private CategoryRepository() {

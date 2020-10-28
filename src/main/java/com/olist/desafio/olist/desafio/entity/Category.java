@@ -46,4 +46,22 @@ public class Category {
     public void setProducts(Set<Product> products) {
         this.products = products;
     }
+
+    public String toString() {
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(" Category#" + id + "{");
+        builder.append("\n\tid = " + id);
+        builder.append("\n\tname = " + this.name);
+        if (this.products != null) {
+            builder.append("products{");
+            for (Product p : products) {
+                builder.append(" " + p.getName());
+            }
+            builder.append("}");
+        }
+        builder.append("}");
+
+        return builder.toString();
+    }
 }

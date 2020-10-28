@@ -1,10 +1,10 @@
-package com.olist.desafio.olist.desafio.filtro;
+package com.olist.desafio.olist.desafio.filter;
 
 import com.olist.desafio.olist.desafio.entity.Category;
 
 import java.util.Set;
 
-public class ProductFiler {
+public class ProductFilter {
 
     private Long id;
     private String name;

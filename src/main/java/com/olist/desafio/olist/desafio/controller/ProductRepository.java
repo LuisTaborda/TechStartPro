@@ -2,19 +2,17 @@ package com.olist.desafio.olist.desafio.controller;
 
 import com.olist.desafio.olist.desafio.entity.Category;
 import com.olist.desafio.olist.desafio.entity.Product;
-import com.olist.desafio.olist.desafio.filtro.ProductFiler;
-import com.olist.desafio.olist.desafio.utils.ConstantsUtils;
-import org.springframework.stereotype.Repository;
+import com.olist.desafio.olist.desafio.filter.ProductFilter;
+import com.olist.desafio.olist.desafio.utils.EntityManagerUtils;
 
 import javax.persistence.*;
 import java.util.*;
 
-@Repository
 public class ProductRepository {
 
     public void add(Product product) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
-        EntityManager em = entityManagerFactory.createEntityManager();
+
+        EntityManager em = EntityManagerUtils.getInstance();
 
         try {
             em.getTransaction().begin();
@@ -28,12 +26,10 @@ public class ProductRepository {
         }
     }
 
-    public List<Product> findByFilter(ProductFiler filter) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
+    public List<Product> findByFilter(ProductFilter filter) {
 
+        EntityManager em = EntityManagerUtils.getInstance();
         List<Product> products = new ArrayList<>();
-
-        EntityManager em = entityManagerFactory.createEntityManager();
         try {
             long id = filter.getId() != null ? filter.getId() : 0;
             String name = filter.getName() != null ? filter.getName() : "";
@@ -41,7 +37,7 @@ public class ProductRepository {
             Double price = filter.getPrice() != null ? filter.getPrice() : 0;
             Set<Category> categories = filter.getCategory() != null ? filter.getCategory() : new HashSet<>();
 
-            products = em.createQuery(" FROM Product p WHERE p.id = :id OR p.name like :name OR p.description like :description OR p.price <= :price ")
+            products = em.createQuery(" FROM Product p WHERE 1=1 OR p.id = :id OR p.name like :name OR p.description like :description OR p.price <= :price ")
                     .setParameter("id", id)
                     .setParameter("name", "%" + name + "%")
                     .setParameter("description", "%" + description + "%")
@@ -56,6 +52,22 @@ public class ProductRepository {
         }
 
         return products;
+    }
+
+    public Product findId(Long id) {
+
+        EntityManager em = EntityManagerUtils.getInstance();
+        Product product = null;
+
+        try {
+            product = em.find(Product.class, id);
+        } catch (Exception e) {
+            System.out.println("LIST ALL: " + e.getMessage());
+        } finally {
+            em.close();
+        }
+
+        return product;
     }
 
     public List<Product> filterCategory(Set<Category> categories, List<Product> products) {
@@ -73,8 +85,8 @@ public class ProductRepository {
     }
 
     public void update(Product product) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
-        EntityManager em = entityManagerFactory.createEntityManager();
+
+        EntityManager em = EntityManagerUtils.getInstance();
 
         try {
             em.getTransaction().begin();
@@ -89,8 +101,8 @@ public class ProductRepository {
     }
 
     public void delete(Product product) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(ConstantsUtils.PERSISTENCE_UNIT_NAME);
-        EntityManager em = entityManagerFactory.createEntityManager();
+
+        EntityManager em = EntityManagerUtils.getInstance();
         try {
             Product p = em.find(Product.class, product.getId());
             em.getTransaction().begin();
