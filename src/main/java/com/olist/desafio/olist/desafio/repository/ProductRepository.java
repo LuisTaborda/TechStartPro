@@ -1,4 +1,4 @@
-package com.olist.desafio.olist.desafio.controller;
+package com.olist.desafio.olist.desafio.repository;
 
 import com.olist.desafio.olist.desafio.entity.Category;
 import com.olist.desafio.olist.desafio.entity.Product;

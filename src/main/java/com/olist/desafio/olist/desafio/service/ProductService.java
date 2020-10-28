@@ -1,7 +1,8 @@
-package com.olist.desafio.olist.desafio.controller;
+package com.olist.desafio.olist.desafio.service;
 
 import com.olist.desafio.olist.desafio.entity.Product;
 import com.olist.desafio.olist.desafio.filter.ProductFilter;
+import com.olist.desafio.olist.desafio.repository.ProductRepository;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.olist.desafio.olist.desafio.controller;
+package com.olist.desafio.olist.desafio.repository;
 
 import com.olist.desafio.olist.desafio.entity.Category;
 import com.olist.desafio.olist.desafio.utils.EntityManagerUtils;
@@ -61,13 +61,13 @@ public class CategoryRepository {
         return category;
     }
 
-    public Category findName(Category category) {
+    public Category findName(String name) {
 
         EntityManager em = EntityManagerUtils.getInstance();
-        Category categorias = null;
+        Category category = null;
 
         try {
-            categorias = (Category) em.createQuery("FROM Category where name = :name").setParameter("name", category.getName()).getSingleResult();
+            category = (Category) em.createQuery("FROM Category c where c.name = :name").setParameter("name", name).getSingleResult();
 
         } catch (Exception e) {
             System.out.println("LIST ALL: " + e.getMessage());
@@ -75,7 +75,7 @@ public class CategoryRepository {
             em.close();
         }
 
-        return categorias;
+        return category;
     }
 
     public void update(Category category) {

@@ -1,8 +1,8 @@
 package com.olist.desafio.olist.desafio;
 
 
-import com.olist.desafio.olist.desafio.controller.CategoryService;
-import com.olist.desafio.olist.desafio.controller.ProductService;
+import com.olist.desafio.olist.desafio.service.CategoryService;
+import com.olist.desafio.olist.desafio.service.ProductService;
 import com.olist.desafio.olist.desafio.entity.Category;
 import com.olist.desafio.olist.desafio.entity.Product;
 import com.olist.desafio.olist.desafio.filter.ProductFilter;
@@ -25,8 +25,8 @@ public class ProductTest {
         categories.add(categoryService.findId(CategoryConstants.BRINQUEDOS));
         categories.add(categoryService.findId(CategoryConstants.DECORACAO));
         Product product = new Product();
-        product.setDescription("Demônio em forma de desenho");
-        product.setName("Peppa Pig ");
+        product.setDescription("descrição qualquer");
+        product.setName(" Produto qualquer ");
         product.setPrice(1554.32);
         product.setCategorias(categories);
 
@@ -84,7 +84,6 @@ public class ProductTest {
     public void delete() {
 
         ProductService productService = new ProductService();
-
         Product product = productService.findId(5L);
         boolean status = false;
         try {

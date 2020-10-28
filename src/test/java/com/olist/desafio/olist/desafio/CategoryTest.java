@@ -2,8 +2,9 @@ package com.olist.desafio.olist.desafio;
 
 
 import com.olist.desafio.olist.desafio.entity.Category;
-import com.olist.desafio.olist.desafio.controller.CategoryService;
+import com.olist.desafio.olist.desafio.service.CategoryService;
 import com.olist.desafio.olist.desafio.utils.CategoryConstants;
+import com.olist.desafio.olist.desafio.utils.ConstantsUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
@@ -67,7 +68,7 @@ public class CategoryTest {
         c.setName("teste");
 
         CategoryService categoryService = new CategoryService();
-        c = categoryService.findName(c);
+        c = categoryService.findName(c.getName());
 
         boolean state = false;
         try {
@@ -102,9 +103,14 @@ public class CategoryTest {
     @Test
     public void addCategoryWithFileCSV() throws IOException {
         CategoryService categoryService = new CategoryService();
-        categoryService.addCategoryFileCSV();
+        boolean state = false;
+        try {
+            categoryService.addCategoryFileCSV(ConstantsUtils.PATH_CSV);
+            state = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        List<Category> categories = categoryService.findAll();
-        org.junit.Assert.assertNotNull(categories);
+        Assert.isTrue(state);
     }
 }

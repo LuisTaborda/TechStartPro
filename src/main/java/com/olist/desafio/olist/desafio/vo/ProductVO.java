@@ -1,17 +1,12 @@
-package com.olist.desafio.olist.desafio.filter;
+package com.olist.desafio.olist.desafio.vo;
 
-import com.olist.desafio.olist.desafio.entity.Category;
-
-import java.util.HashSet;
-import java.util.Set;
-
-public class ProductFilter {
+public class ProductVO {
 
     private Long id;
     private String name;
     private String description;
     private Double price;
-    private Set<Category> category = new HashSet<>();
+    private String category;
 
     public Long getId() {
         return id;
@@ -45,11 +40,11 @@ public class ProductFilter {
         this.price = price;
     }
 
-    public Set<Category> getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Set<Category> category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 }

@@ -1,10 +1,12 @@
-package com.olist.desafio.olist.desafio.controller;
+package com.olist.desafio.olist.desafio.service;
 
 import com.olist.desafio.olist.desafio.entity.Category;
+import com.olist.desafio.olist.desafio.repository.CategoryRepository;
 import com.olist.desafio.olist.desafio.utils.ConstantsUtils;
 import com.olist.desafio.olist.desafio.utils.CsvUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,8 +26,8 @@ public class CategoryService {
         return categoryRepository.findId(id);
     }
 
-    public Category findName(Category category) {
-        return categoryRepository.findName(category);
+    public Category findName(String name) {
+        return categoryRepository.findName(name);
     }
 
     public List<Category> findAll() {
@@ -40,11 +42,22 @@ public class CategoryService {
         categoryRepository.delete(category);
     }
 
-    public void addCategoryFileCSV() throws IOException {
+    public void addCategoryFileCSV(String path) throws IOException {
 
-        List<String[]> categories = CsvUtils.readCSV(ConstantsUtils.PATH_CSV);
+        List<Category> listCurrents = findAll();
+        List<String> currentsCategoryName = new ArrayList<>();
+        for (Category c2: listCurrents) {
+            currentsCategoryName.add(c2.getName());
+        }
+
+        List<String[]> categories = CsvUtils.readCSV(path);
         for (String[] category : categories) {
-            add(category[0]);
+            if(currentsCategoryName.contains(category[0])){
+                System.out.println("true");
+            } else{
+                add(category[0]);
+                System.out.println(category[0] + " add to database");
+            }
         }
 
     }
